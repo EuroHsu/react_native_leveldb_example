@@ -10,13 +10,14 @@ export default class App extends Component {
     super(props);
     this.state = {
       welcome: 'Welcome to level db!',
-      instructions: ''
+      instructions: 'Press any button'
     }
   }
 
   putString = async (key, value) => {
     try {
       await db.put(key, value);
+      this.setState({ instructions: 'Save success' });
     } catch (e) {
       console.error(e);
     }
@@ -35,6 +36,7 @@ export default class App extends Component {
   delStringByKey = async (key) => {
     try {
       await db.del(key);
+      this.setState({ instructions: 'Delete success' });
     } catch (e) {
       console.error(e);
     }
@@ -44,16 +46,16 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{ this.state.welcome }!</Text>
+        <Text style={styles.instructions}>{ this.state.instructions }</Text>
         <Button
-          onPress={() => this.putString('instructions', 'Something')}
-          title="Put text to db"/>
+          onPress={() => this.putString('key', '123')}
+          title="Put 123 to db"/>
         <Button
-          onPress={() => this.getString('instructions')}
+          onPress={() => this.getString('key')}
           title="Get text from db"/>
         <Button
-          onPress={() => this.delStringByKey('instructions')}
+          onPress={() => this.delStringByKey('key')}
           title="Del text from db"/>
-        <Text style={styles.instructions}>{ this.state.instructions }</Text>
       </View>
     );
   }
@@ -63,7 +65,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   instructions: {
+    fontSize: 20,
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,

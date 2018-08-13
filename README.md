@@ -18,7 +18,7 @@
 
     npm install node-libs-browser
 
-### 3. Install leveldb
+### 3. Install [levelup](https://github.com/Level/levelup) and [asyncstorage-down](https://github.com/tradle/asyncstorage-down)
 
     npm install levelup asyncstorage-down
 
